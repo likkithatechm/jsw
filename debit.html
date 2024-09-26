@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Credit Form</title>
+    <style>
+        /* Basic reset */
+body, h2, form, input, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.credit-container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+}
+
+.credit-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#message {
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="credit-container">
+        <h2>Bank Credit Form</h2>
+        <form id="creditForm">
+            <div class="input-group">
+                <label for="pin">PIN</label>
+                <input type="password" id="pin" name="pin" placeholder="Enter PIN" required>
+            </div>
+            <div class="input-group">
+                <label for="amount">Amount</label>
+                <input type="number" id="amount" name="amount" placeholder="Enter Amount" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        document.getElementById('creditForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Predefined valid PIN, amount, and initial balance
+            const validPin = "1234";
+            const initialBalance = 20000; // Example initial balance
+            const enteredAmount = parseFloat(document.getElementById('amount').value);
+            const pin = document.getElementById('pin').value;
+
+            // Check if the PIN is correct
+            if (pin === validPin) {
+                // If PIN is correct, check if the amount is valid and within the balance
+                if (enteredAmount <= initialBalance) {
+                    const remainingBalance = initialBalance - enteredAmount;
+                    document.getElementById('message').textContent = `Transaction successful! ${enteredAmount} credited. Remaining balance: ${remainingBalance}.`;
+                    document.getElementById('message').style.color = 'green';
+                
+                } else {
+                    document.getElementById('message').textContent = "Transaction failed. Insufficient funds.";
+                    document.getElementById('message').style.color = 'red';
+                }
+            } else {
+                // If PIN is incorrect
+                document.getElementById('message').textContent = "Transaction failed. Invalid PIN.";
+                document.getElementById('message').style.color = 'red';
+                alert("pin was incorrect");
+            }
+        });
+    </script>
+</body>
+</html>
